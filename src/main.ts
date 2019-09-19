@@ -4,7 +4,7 @@ import { createBranch } from './create-branch';
 
 async function run() {
   try {
-    const myInput = core.getInput('myInput');
+    const myInput = core.getInput('branch');
     await createBranch(GitHub, context, myInput)
     core.debug(`Hello ${myInput}`);
   } catch (error) {

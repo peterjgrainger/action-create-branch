@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "JavaScript template action",
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest"

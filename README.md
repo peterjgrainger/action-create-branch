@@ -10,6 +10,8 @@ This action creates a new branch with the same commit reference as the branch it
 
 ## Example usage
 
+```
 uses: peterjgrainger/action-create-branch@v1.0.0
 with:
   branch: 'release-notes'
+```

@@ -1,6 +1,9 @@
 name: 'Create Branch'
 description: 'Creates a branch'
 author: 'Peter Grainger (peter@grainger)'
+branding:
+  icon: 'git-branch' 
+  color: 'green'
 inputs:
   branch:
     description: 'The branch to create'

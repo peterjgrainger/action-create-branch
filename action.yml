@@ -1,10 +1,10 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Create Branch'
+description: 'Creates a branch'
+author: 'Peter Grainger (peter@grainger)'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  branch:
+    description: 'The branch to create'
+    default: 'release-candidate'
 runs:
   using: 'node12'
   main: 'lib/main.js'

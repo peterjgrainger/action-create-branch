@@ -1,9 +1,15 @@
-# Create a JavaScript Action using TypeScript
+# Create Branch Github Action
 
-This template offers an easy way to get started writing a JavaScript action with TypeScript compile time support, unit testing with Jest and using the GitHub Actions Toolkit.
+This action creates a new branch with the same commit reference as the branch it is being ran on.
 
-## Getting Started
+## Inputs
 
-See the walkthrough located [here](https://github.com/actions/toolkit/blob/master/docs/typescript-action.md).
+### `branch`
 
-In addition to walking your through how to create an action, it also provides strategies for versioning, releasing and referencing your actions.
+**Optional** The name of the branch to create. Default `"release-candidate"`.
+
+## Example usage
+
+uses: peterjgrainger/action-create-branch@v1.0.0
+with:
+  branch: 'release-notes'

@@ -64,15 +64,6 @@ describe('Create a branch based on the input', () => {
       expect(error).toEqual(new ReferenceError('No token defined in the environment variables'))
     }
   })
-
-  it('fails if branch already exists', async() => {
-    try {
-      await createBranch(githubMock, contextMock, branch)
-      throw Error('should error')
-    } catch (error) {
-      expect(error).toEqual(new ReferenceError('Branch already exists'))
-    }
-  })
 });
 
 class HttpError extends Error {

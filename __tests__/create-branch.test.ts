@@ -1,5 +1,6 @@
 import {createBranch} from '../src/create-branch'
 import { readFileSync } from 'fs';
+import { context } from '@actions/github';
 
 describe('Create a branch based on the input', () => {
 
@@ -12,6 +13,9 @@ describe('Create a branch based on the input', () => {
     octokitMock = {
       git: {
         createRef: jest.fn()
+      },
+      repos: {
+        getBranch: jest.fn()
       }
     }
   })
@@ -30,8 +34,20 @@ describe('Create a branch based on the input', () => {
     process.env.GITHUB_TOKEN = 'token'
   })
 
+  it('gets a branch', async () => {
+    octokitMock.repos.getBranch.mockRejectedValue(new HttpError())
+    process.env.GITHUB_REPOSITORY = 'peterjgrainger/test-action-changelog-reminder'
+    await createBranch(githubMock, context, branch)
+    expect(octokitMock.repos.getBranch).toHaveBeenCalledWith({
+      repo: 'test-action-changelog-reminder',
+      owner: 'peterjgrainger',
+      branch
+    })
+  })
 
-  it('Create new branch', async () => {
+
+  it('Create new branch if not already there', async () => {
+    octokitMock.repos.getBranch.mockRejectedValue(new HttpError())
     await createBranch(githubMock, contextMock, branch)
     expect(octokitMock.git.createRef).toHaveBeenCalledWith({
       ref: 'refs/heads/release-v1',
@@ -48,4 +64,18 @@ describe('Create a branch based on the input', () => {
       expect(error).toEqual(new ReferenceError('No token defined in the environment variables'))
     }
   })
+
+  it('fails if branch already exists', async() => {
+    try {
+      await createBranch(githubMock, contextMock, branch)
+      throw Error('should error')
+    } catch (error) {
+      expect(error).toEqual(new ReferenceError('Branch already exists'))
+    }
+  })
 });
+
+class HttpError extends Error {
+  name = 'HttpError'
+  status = 404
+}

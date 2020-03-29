@@ -23,7 +23,6 @@ export async function createBranch(github: any, context: Context, branch: string
         throw Error(error)
       }
     }
-    if (branchExists) throw ReferenceError('Branch already exists')
 }
 
 function githubToken(): string {

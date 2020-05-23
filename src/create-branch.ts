@@ -15,7 +15,7 @@ export async function createBranch(github: any, context: Context, branch: string
     } catch(error) {
       if(error.name === 'HttpError' && error.status === 404) {
         // Sometimes branch might come in with refs/heads already
-        branch.replace('refs/heads/', '');
+        branch = branch.replace('refs/heads/', '');
         await toolkit.git.createRef({
           ref: `refs/heads/${branch}`,
           sha: context.sha,

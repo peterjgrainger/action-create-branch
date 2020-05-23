@@ -8389,9 +8389,9 @@ function createBranch(github, context, branch) {
             branchExists = true;
         }
         catch (error) {
-            if (error.name === "HttpError" && error.status === 404) {
+            if (error.name === 'HttpError' && error.status === 404) {
                 // Sometimes branch might come in with refs/heads already
-                branch.replace("refs/heads/", "");
+                branch = branch.replace('refs/heads/', '');
                 yield toolkit.git.createRef(Object.assign({ ref: `refs/heads/${branch}`, sha: context.sha }, context.repo));
             }
             else {
@@ -8404,7 +8404,7 @@ exports.createBranch = createBranch;
 function githubToken() {
     const token = process.env.GITHUB_TOKEN;
     if (!token)
-        throw ReferenceError("No token defined in the environment variables");
+        throw ReferenceError('No token defined in the environment variables');
     return token;
 }
 

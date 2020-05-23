@@ -8391,7 +8391,9 @@ function createBranch(github, context, branch) {
         catch (error) {
             if (error.name === 'HttpError' && error.status === 404) {
                 // Sometimes branch might come in with refs/heads already
+                console.log(`Incoming Branch: ${branch}`);
                 branch = branch.replace('refs/heads/', '');
+                console.log(`Replaced branch: ${branch}`);
                 yield toolkit.git.createRef(Object.assign({ ref: `refs/heads/${branch}`, sha: context.sha }, context.repo));
             }
             else {

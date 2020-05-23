@@ -55,6 +55,15 @@ describe('Create a branch based on the input', () => {
     })
   });
 
+  it('Replaces refs/heads in branch name', async () => {
+    octokitMock.repos.getBranch.mockRejectedValue(new HttpError())
+    await createBranch(githubMock, contextMock, `refs/heads/${branch}`)
+    expect(octokitMock.git.createRef).toHaveBeenCalledWith({
+      ref: 'refs/heads/release-v1',
+      sha: 'ebb4992dc72451c1c6c99e1cce9d741ec0b5b7d7'
+    })
+  });
+
   it('fails if github token isn\'t defined', async() => {
     delete process.env.GITHUB_TOKEN
     expect.assertions(1);

@@ -8383,6 +8383,8 @@ function createBranch(github, context, branch) {
     return __awaiter(this, void 0, void 0, function* () {
         const toolkit = new github(githubToken());
         let branchExists;
+        // Sometimes branch might come in with refs/heads already
+        branch = branch.replace('refs/heads/', '');
         // throws HttpError if branch already exists.
         try {
             yield toolkit.repos.getBranch(Object.assign({}, context.repo, { branch }));
@@ -8390,10 +8392,6 @@ function createBranch(github, context, branch) {
         }
         catch (error) {
             if (error.name === 'HttpError' && error.status === 404) {
-                // Sometimes branch might come in with refs/heads already
-                console.log(`Incoming Branch: ${branch}`);
-                branch = branch.replace('refs/heads/', '');
-                console.log(`Replaced branch: ${branch}`);
                 yield toolkit.git.createRef(Object.assign({ ref: `refs/heads/${branch}`, sha: context.sha }, context.repo));
             }
             else {

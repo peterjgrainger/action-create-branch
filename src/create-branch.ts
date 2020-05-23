@@ -4,6 +4,9 @@ import { GitHub } from "@actions/github";
 export async function createBranch(github: any, context: Context, branch: string) {
   const toolkit : GitHub = new github(githubToken());
     let branchExists;
+    // Sometimes branch might come in with refs/heads already
+    branch = branch.replace('refs/heads/', '');
+    
     // throws HttpError if branch already exists.
     try {
       await toolkit.repos.getBranch({
@@ -14,10 +17,6 @@ export async function createBranch(github: any, context: Context, branch: string
       branchExists = true;
     } catch(error) {
       if(error.name === 'HttpError' && error.status === 404) {
-        // Sometimes branch might come in with refs/heads already
-        console.log(`Incoming Branch: ${branch}`);
-        branch = branch.replace('refs/heads/', '');
-        console.log(`Replaced branch: ${branch}`);
         await toolkit.git.createRef({
           ref: `refs/heads/${branch}`,
           sha: context.sha,

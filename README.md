@@ -1,4 +1,4 @@
-# Create Branch Github Action
+# Create Branch GitHub Action
 
 This action creates a new branch with the same commit reference as the branch it is being ran on.
 
@@ -12,7 +12,7 @@ This action creates a new branch with the same commit reference as the branch it
 
 ```
 uses: peterjgrainger/action-create-branch@v1.0.0
-env: 
+env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 with:
   branch: 'release-notes'

@@ -11,7 +11,7 @@ This action creates a new branch with the same commit reference as the branch it
 ## Example usage
 
 ```
-uses: peterjgrainger/action-create-branch@v1.0.0
+uses: peterjgrainger/action-create-branch@v2.0.1
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 with:

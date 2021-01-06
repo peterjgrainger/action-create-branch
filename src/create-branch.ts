@@ -1,7 +1,7 @@
 import { Context } from "@actions/github/lib/context";
 import { GitHub } from "@actions/github";
 
-export async function createBranch(github: any, context: Context, branch: string) {
+export async function createBranch(github: any, context: Context, branch: string, sha?: string) {
   const toolkit : GitHub = new github(githubToken());
     let branchExists;
     // Sometimes branch might come in with refs/heads already
@@ -19,7 +19,7 @@ export async function createBranch(github: any, context: Context, branch: string
       if(error.name === 'HttpError' && error.status === 404) {
         await toolkit.git.createRef({
           ref: `refs/heads/${branch}`,
-          sha: context.sha,
+          sha: sha || context.sha,
           ...context.repo
         })
       } else {

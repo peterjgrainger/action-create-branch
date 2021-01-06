@@ -8,6 +8,8 @@ inputs:
   branch:
     description: 'The branch to create'
     default: 'release-candidate'
+  sha:
+    description: 'The SHA1 value for the branch reference'
 runs:
   using: 'node12'
   main: 'dist/index.js'

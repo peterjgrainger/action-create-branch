@@ -1,12 +1,16 @@
 # Create Branch GitHub Action
 
-This action creates a new branch with the same commit reference as the branch it is being ran on.
+This action creates a new branch with the same commit reference as the branch it is being ran on, or your chosen reference when specified.
 
 ## Inputs
 
 ### `branch`
 
 **Optional** The name of the branch to create. Default `"release-candidate"`.
+
+### `sha`
+
+**Optional** The SHA1 value for the branch reference.
 
 ## Example usage
 

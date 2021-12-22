@@ -1,23 +1,19 @@
 import { Context } from "@actions/github/lib/context";
-import { GitHub } from "@actions/github";
 
-export async function createBranch(github: any, context: Context, branch: string, sha?: string) {
-  const toolkit : GitHub = new github(githubToken());
-    let branchExists;
+export async function createBranch(getOctokit: any, context: Context, branch: string, sha?: string) {
+  const toolkit = getOctokit(githubToken());
     // Sometimes branch might come in with refs/heads already
     branch = branch.replace('refs/heads/', '');
     
     // throws HttpError if branch already exists.
     try {
-      await toolkit.repos.getBranch({
+      await toolkit.rest.repos.getBranch({
         ...context.repo,
         branch
       })
-
-      branchExists = true;
-    } catch(error) {
+    } catch(error: any ) {
       if(error.name === 'HttpError' && error.status === 404) {
-        await toolkit.git.createRef({
+        await toolkit.rest.git.createRef({
           ref: `refs/heads/${branch}`,
           sha: sha || context.sha,
           ...context.repo

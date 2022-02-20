@@ -5753,7 +5753,8 @@ function createBranch(getOctokit, context, branch, sha) {
         }
         catch (error) {
             if (error.name === 'HttpError' && error.status === 404) {
-                yield toolkit.rest.git.createRef(Object.assign({ ref: `refs/heads/${branch}`, sha: sha || context.sha }, context.repo));
+                const resp = yield toolkit.rest.git.createRef(Object.assign({ ref: `refs/heads/${branch}`, sha: sha || context.sha }, context.repo));
+                console.log('Create Ref Response:', JSON.stringify(resp));
             }
             else {
                 throw Error(error);

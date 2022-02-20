@@ -368,7 +368,8 @@ function run() {
             const branch = core.getInput('branch');
             const sha = core.getInput('sha');
             core.debug(`Creating branch ${branch}`);
-            yield (0, create_branch_1.createBranch)(github_1.getOctokit, github_1.context, branch, sha);
+            const isCreated = yield (0, create_branch_1.createBranch)(github_1.getOctokit, github_1.context, branch, sha);
+            core.setOutput('created', Boolean(isCreated));
         }
         catch (error) {
             core.setFailed(error.message);
@@ -5743,6 +5744,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createBranch = void 0;
 function createBranch(getOctokit, context, branch, sha) {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         const toolkit = getOctokit(githubToken());
         // Sometimes branch might come in with refs/heads already
@@ -5754,7 +5756,7 @@ function createBranch(getOctokit, context, branch, sha) {
         catch (error) {
             if (error.name === 'HttpError' && error.status === 404) {
                 const resp = yield toolkit.rest.git.createRef(Object.assign({ ref: `refs/heads/${branch}`, sha: sha || context.sha }, context.repo));
-                console.log('Create Ref Response:', JSON.stringify(resp));
+                return ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.ref) === branch;
             }
             else {
                 throw Error(error);

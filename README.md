@@ -12,6 +12,12 @@ This action creates a new branch with the same commit reference as the branch it
 
 **Optional** The SHA1 value for the branch reference.
 
+## Outputs
+
+### `created`
+
+Boolean value representing whether or not a new branch was created.
+
 ## Example usage
 
 ```

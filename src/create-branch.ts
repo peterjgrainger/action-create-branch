@@ -4,6 +4,7 @@ export async function createBranch(getOctokit: any, context: Context, branch: st
 	const toolkit = getOctokit(githubToken());
 	// Sometimes branch might come in with refs/heads already
 	branch = branch.replace('refs/heads/', '');
+	const ref = `refs/heads/${branch}`;
 
 	// throws HttpError if branch already exists.
 	try {
@@ -14,12 +15,12 @@ export async function createBranch(getOctokit: any, context: Context, branch: st
 	} catch (error: any) {
 		if (error.name === 'HttpError' && error.status === 404) {
 			const resp = await toolkit.rest.git.createRef({
-				ref: `refs/heads/${branch}`,
+				ref,
 				sha: sha || context.sha,
 				...context.repo,
 			});
 
-			return resp?.data?.ref === branch;
+			return resp?.data?.ref === ref;
 		} else {
 			throw Error(error);
 		}

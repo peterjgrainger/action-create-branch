@@ -5749,14 +5749,15 @@ function createBranch(getOctokit, context, branch, sha) {
         const toolkit = getOctokit(githubToken());
         // Sometimes branch might come in with refs/heads already
         branch = branch.replace('refs/heads/', '');
+        const ref = `refs/heads/${branch}`;
         // throws HttpError if branch already exists.
         try {
             yield toolkit.rest.repos.getBranch(Object.assign(Object.assign({}, context.repo), { branch }));
         }
         catch (error) {
             if (error.name === 'HttpError' && error.status === 404) {
-                const resp = yield toolkit.rest.git.createRef(Object.assign({ ref: `refs/heads/${branch}`, sha: sha || context.sha }, context.repo));
-                return ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.ref) === branch;
+                const resp = yield toolkit.rest.git.createRef(Object.assign({ ref, sha: sha || context.sha }, context.repo));
+                return ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.ref) === ref;
             }
             else {
                 throw Error(error);

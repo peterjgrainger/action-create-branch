@@ -18,7 +18,8 @@ export async function createBranch(getOctokit: any, context: Context, branch: st
 				sha: sha || context.sha,
 				...context.repo,
 			});
-			console.log('Create Ref Response:', JSON.stringify(resp));
+
+			return resp?.data?.ref === branch;
 		} else {
 			throw Error(error);
 		}

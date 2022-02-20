@@ -2,7 +2,7 @@ name: 'Create Branch'
 description: 'Creates a branch'
 author: 'Peter Grainger (peter@grainger)'
 branding:
-  icon: 'git-branch' 
+  icon: 'git-branch'
   color: 'green'
 inputs:
   branch:
@@ -10,6 +10,9 @@ inputs:
     default: 'release-candidate'
   sha:
     description: 'The SHA1 value for the branch reference'
+outputs:
+  created:
+    description: 'Boolean value representing whether or not a new branch was created.'
 runs:
   using: 'node12'
   main: 'dist/index.js'

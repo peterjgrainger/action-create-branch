@@ -1,11 +1,9 @@
 name: 'Test Run'
 on:
-  push:
-    branches:
-      - '!master'
+  - push
 
 jobs:
-  check_pr:
+  test_run:
     runs-on: ubuntu-latest
     steps:
       - uses: alehechka/action-create-branch@feature/output-create-status

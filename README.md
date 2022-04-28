@@ -21,9 +21,10 @@ Boolean value representing whether or not a new branch was created.
 ## Example usage
 
 ```
-uses: peterjgrainger/action-create-branch@v2.0.1
+uses: peterjgrainger/action-create-branch@v2.2.0
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 with:
   branch: 'release-notes'
+  sha: '${{ github.event.pull_request.head.sha }}'
 ```

@@ -6,7 +6,7 @@ This action creates a new branch with the same commit reference as the branch it
 
 ### `branch`
 
-**Optional** The name of the branch to create. Default `"release-candidate"`.
+**Optional** The name of the branch to create. Default `"release-candidate"`. If your branch conains forward slashes (`/`) use the full branch reference. Instead of `/long/branch/name` use `refs/heads/long/branch/name`. It's an issue with the GitHub API https://gist.github.com/jasonrudolph/10727108
 
 ### `sha`
 

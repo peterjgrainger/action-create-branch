@@ -370,6 +370,8 @@ function run() {
             core.debug(`Creating branch ${branch}`);
             const isCreated = yield (0, create_branch_1.createBranch)(github_1.getOctokit, github_1.context, branch, sha);
             core.setOutput('created', Boolean(isCreated));
+            core.warning('Deprecation warning: If you are using the created output, this will be removed in future versions. Please use the BRANCH_CREATED environment variable instead.');
+            core.exportVariable('BRANCH_CREATED', Boolean(isCreated));
         }
         catch (error) {
             core.setFailed(error.message);

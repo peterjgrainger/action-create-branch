@@ -16,15 +16,7 @@ This action creates a new branch with the same commit reference as the branch it
 
 ### `created` 
 
-***WARNING. DEPRECATED. USE BRANCH_CREATED ENVIRONMENT VARIABLE***
-
 Boolean value representing whether or not a new branch was created.
-
-## Environment Variables Set
-
-### `BRANCH_CREATED`
-
-Boolean value representing whether or not a new branch was created. This environment variable can be used in susequent steps in your workflow.
 
 ## Example usage
 

@@ -14,5 +14,5 @@ outputs:
   created:
     description: 'Boolean value representing whether or not a new branch was created.'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
